@@ -5,9 +5,9 @@ import sys
 import click
 import os
 import yaml
-from helpers.nso import NSO
-from helpers.vars import create_group_vars
-from helpers.playbook import DEFAULT_PLAYBOOK
+from .helpers.nso import NSO
+from .helpers.vars import create_group_vars
+from .helpers.playbook import DEFAULT_PLAYBOOK
 
 
 @click.command()
