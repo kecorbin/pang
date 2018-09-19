@@ -16,7 +16,7 @@ Playbook for Ansible + NSO Generator
 
 
 
-A simple utility which will create playAnsible playbooks for existing networks using NSO
+A simple utility which will create Ansible playbooks for existing networks using NSO
 
 
 * Free software: MIT license
