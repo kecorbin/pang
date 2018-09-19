@@ -20,13 +20,13 @@ class NSO(object):
     def _utf8_encode(self, obj):
         if obj is None:
             return None
-        if type(obj) is unicode: # noqa
-            return obj.encode('utf-8')
+        if isinstance(obj, str): # noqa
+            return obj
         if type(obj) is list:
             return [self._utf8_encode(value) for value in obj]
         if type(obj) is dict:
             obj_dest = {}
-            for key, value in obj.iteritems():
+            for key, value in obj.items():
                 if 'EXEC' not in key and key != "operations":
                     obj_dest[self._utf8_encode(key)] = self._utf8_encode(value)
             return obj_dest

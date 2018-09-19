@@ -11,6 +11,9 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
+description = "A simple utility which will create " \
+            "Ansible playbooks for existing networks using NSO"
+
 requirements = ['Click>=6.0',
                 'PyYAML==3.13',
                 'requests==2.19.1']
@@ -35,7 +38,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description="A simple utility which will create playAnsible playbooks for existing networks using NSO",
+    description=description,
     entry_points={
         'console_scripts': [
             'pang=pang.cli:main',
