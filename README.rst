@@ -37,7 +37,15 @@ Usage
 
 Running::
 
-  pang
+  Usage: pang [OPTIONS]
+
+    PANG - Playbook for Ansible + NSO Generator
+
+  Options:
+    --nso <host_or_ip>     FQDN/IP of NSO Server (default: localhost)
+    --username <username>  NSO Username (default: admin)
+    --password <password>  NSO Password (default: admin)
+    --help                 Show this message and exit.
 
 
 Sample Output::
