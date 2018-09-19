@@ -29,7 +29,13 @@ BROWSER := python -c "$$BROWSER_PYSCRIPT"
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-clean: clean-build clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
+clean: clean-build clean-pyc clean-test clean-ansible ## remove all build, test, coverage and Python artifacts
+
+clean-ansible:
+	rm -Rf group_vars/
+	rm -Rf host_vars/
+	rm inventory.yaml
+	rm site.yaml
 
 clean-build: ## remove build artifacts
 	rm -fr build/
