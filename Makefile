@@ -32,10 +32,10 @@ help:
 clean: clean-build clean-pyc clean-test clean-ansible ## remove all build, test, coverage and Python artifacts
 
 clean-ansible:
-	rm -Rf group_vars/
-	rm -Rf host_vars/
-	rm inventory.yaml
-	rm site.yaml
+	-rm -Rf group_vars/
+	-rm -Rf host_vars/
+	-rm inventory.yaml
+	-rm site.yaml
 
 clean-build: ## remove build artifacts
 	rm -fr build/
