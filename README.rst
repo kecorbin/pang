@@ -26,21 +26,21 @@ A simple utility which will create playAnsible playbooks for existing networks u
 Installation
 --------
 
-```
-git clone https://github.com/kecorbin/pang
-cd pang
-python setup.py install
-```
+To install pang from source run the following commands::
+
+  git clone https://github.com/kecorbin/pang
+  cd pang
+  python setup.py install
 
 Usage
 --------
 
-Running: 
+Running::
 
   pang
 
 
-Sample Output:
+Sample Output::
 
   Generating Ansible Playbook...
   Syncing Configuration from Devices
