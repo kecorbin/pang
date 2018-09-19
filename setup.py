@@ -11,7 +11,9 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read()
 
-requirements = ['Click>=6.0', ]
+requirements = ['Click>=6.0',
+                'PyYAML==3.13',
+                'requests==2.19.1']
 
 setup_requirements = [ ]
 
@@ -45,7 +47,7 @@ setup(
     include_package_data=True,
     keywords='pang',
     name='pang',
-    packages=find_packages(include=['pang']),
+    packages=find_packages(),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
