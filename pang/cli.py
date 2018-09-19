@@ -11,16 +11,30 @@ from helpers.playbook import DEFAULT_PLAYBOOK
 
 
 @click.command()
-def main(args=None):
+@click.option('--nso',
+              help="FQDN/IP of NSO Server",
+              metavar="<host_or_ip>",
+              default="localhost")
+@click.option('--username',
+              help="NSO Username",
+              metavar='<username>',
+              default="admin")
+@click.option('--password',
+              help="NSO Password",
+              metavar="<password>",
+              default="admin")
+def main(nso, username, password):
     """PANG - Playbook for Ansible + NSO Generator"""
-
+    
     if not os.path.exists('host_vars'):
         os.makedirs('host_vars')
 
     if not os.path.exists('group_vars'):
         os.makedirs('group_vars')
 
-    config = create_group_vars()
+    config = create_group_vars(host=nso,
+                               username=username,
+                               password=password)
 
     url = config['nso']['url']
     username = config['nso']['username']
