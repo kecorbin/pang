@@ -8,7 +8,7 @@ import yaml
 from .helpers.nso import NSO
 from .helpers.vars import create_group_vars
 from .helpers.playbook import DEFAULT_PLAYBOOK
-
+from .helpers import create_dirs
 
 @click.command()
 @click.option('--nso',
@@ -26,11 +26,7 @@ from .helpers.playbook import DEFAULT_PLAYBOOK
 def main(nso, username, password):
     """PANG - Playbook for Ansible + NSO Generator"""
 
-    if not os.path.exists('host_vars'):
-        os.makedirs('host_vars')
-
-    if not os.path.exists('group_vars'):
-        os.makedirs('group_vars')
+    create_dirs()
 
     config = create_group_vars(host=nso,
                                username=username,
@@ -78,6 +74,9 @@ def main(nso, username, password):
 
     with open('site.yaml', 'w') as pb:
         pb.write(DEFAULT_PLAYBOOK)
+
+    click.echo("Exporting Netsim configuration")
+    nso.generate_netsim_configs(devices)
 
 
 if __name__ == "__main__":

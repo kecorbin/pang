@@ -18,9 +18,9 @@ requirements = ['Click>=6.0',
                 'PyYAML==3.13',
                 'requests==2.19.1']
 
-setup_requirements = [ ]
+setup_requirements = []
 
-test_requirements = [ ]
+test_requirements = []
 
 setup(
     author="Kevin Corbin",

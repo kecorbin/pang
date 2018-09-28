@@ -1,4 +1,6 @@
 import requests
+import os
+import errno
 
 
 class NSO(object):
@@ -43,6 +45,19 @@ class NSO(object):
         else:
             response.raise_for_status()
 
+    def get_device_config_xml(self, device):
+        headers = {
+            'Content-Type': "application/vnd.yang.data+xml",
+            'Accept': "application/vnd.yang.collection+xml,"
+                      "application/vnd.yang.data+xml"
+            }
+        url = '/api/config/devices/device/{}/config?deep'.format(device)
+        url = self.base_url + url
+        response = requests.get(url,
+                                headers=headers,
+                                auth=(self.username, self.password))
+        return response.text
+
     def post(self, uri, data=None):
         url = self.base_url + uri
 
@@ -81,3 +96,16 @@ class NSO(object):
         for d in response.json()["collection"]["tailf-ncs:device"]:
             device_list.append(d["name"])
         return device_list
+
+    def generate_netsim_configs(self, devices):
+        for d in devices:
+            xml_config = self.get_device_config_xml(d)
+            filename = 'load-dir/{0}.xml'.format(d)
+            if not os.path.exists(os.path.dirname(filename)):
+                try:
+                    os.makedirs(os.path.dirname(filename))
+                except OSError as exc:  # Guard against race condition
+                    if exc.errno != errno.EEXIST:
+                        raise
+            with open(filename, "w") as f:
+                f.write(xml_config)

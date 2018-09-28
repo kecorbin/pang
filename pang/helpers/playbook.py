@@ -1,7 +1,21 @@
 DEFAULT_PLAYBOOK = """
 ---
+- name: Push Desired Configuration to Devices
+  hosts: localhost
+  connection: local
+  gather_facts: no
 
-- name: Verify device configuration
+  tasks:
+
+    - name: NSO sync-to action
+      nso_action:
+        url: "{{ nso.url }}"
+        username: "{{ nso.username }}"
+        password: "{{ nso.password }}"
+        path: /ncs:devices/sync-to
+        input: {}
+
+- name: Push Device Configuration to NSO
   hosts: all
   connection: local
   gather_facts: no
