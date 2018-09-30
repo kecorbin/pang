@@ -24,7 +24,7 @@ A simple utility which will create Ansible playbooks for existing networks using
 
 
 Installation
---------
+-------------------
 
 To install pang from source run the following commands::
 
