@@ -3,12 +3,12 @@
 """Console script for pang."""
 import sys
 import click
-import os
 import yaml
 from .helpers.nso import NSO
-from .helpers.vars import create_group_vars
 from .helpers.playbook import DEFAULT_PLAYBOOK
 from .helpers import create_dirs
+from .helpers.inventory import create_inventory
+
 
 @click.command()
 @click.option('--nso',
@@ -26,21 +26,14 @@ from .helpers import create_dirs
 def main(nso, username, password):
     """PANG - Playbook for Ansible + NSO Generator"""
 
+    # creates basic folder structure
     create_dirs()
 
-    config = create_group_vars(host=nso,
-                               username=username,
-                               password=password)
-
-    url = config['nso']['url']
-    username = config['nso']['username']
-    password = config['nso']['password']
-
-    if url.endswith('/jsonrpc'):
-        # it very likely does...
-        url = url.strip('/jsonrpc')
-
+    url = "http://{}:{}".format(nso, 8080)
     nso = NSO(url, username, password)
+
+    # url is now only used for ansible
+    url = url + '/jsonrpc'
 
     click.echo("Syncing Configuration from Devices")
     nso.sync_from()
@@ -61,14 +54,20 @@ def main(nso, username, password):
         except ValueError:
             print("Failed to parse JSON for {}".format(d))
 
-    # create inventory yaml
-    inv_dict = {"all": {"hosts": {}}}
-    inv_dict["all"]["hosts"] = {k: None for k in inv_devices}
+    inv_dict = {k: None for k in inv_devices}
+    # inventory representing source
+    create_inventory("prod",
+                     url,
+                     username,
+                     password,
+                     inv_dict)
 
-    with open('inventory.yaml', 'w') as inv:
-        yaml.safe_dump(inv_dict, inv, default_flow_style=False,
-                       explicit_start=False,
-                       encoding='utf-8')
+    # also creates a netsim dev environment
+    create_inventory("dev",
+                     "http://localhost:8080/jsonrpc",
+                     username,
+                     password,
+                     inv_dict)
 
     click.echo("Generating Ansible Playbook...")
 
