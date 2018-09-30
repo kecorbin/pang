@@ -34,9 +34,12 @@ def main(nso, username, password):
 
     # url is now only used for ansible
     url = url + '/jsonrpc'
-
-    click.echo("Syncing Configuration from Devices")
-    nso.sync_from()
+    try:
+        nso.sync_from()
+        click.echo("Syncing Configuration from Devices")
+    except Exception as e:
+        click.secho("Error Connecting to NSO: {}".format(e), fg="red")
+        sys.exit(1)
 
     devices = nso.get_device_list()
     # track devices to be added to inventory
