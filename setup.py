@@ -16,7 +16,7 @@ description = "A simple utility which will create " \
 
 requirements = ['Click>=6.0',
                 'PyYAML==3.13',
-                'requests==2.19.1']
+                'requests==2.20.0']
 
 setup_requirements = []
 
