@@ -15,7 +15,7 @@ description = "A simple utility which will create " \
             "Ansible playbooks for existing networks using NSO"
 
 requirements = ['Click>=6.0',
-                'PyYAML==3.13',
+                'PyYAML==5.1',
                 'requests==2.19.1']
 
 setup_requirements = []
